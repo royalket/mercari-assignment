@@ -1,6 +1,6 @@
 import yaml
 from pathlib import Path
-from utils import get_yaml_files
+from .utils import get_yaml_files
 
 def parse_yaml_files(path):
     yaml_files = get_yaml_files(path)

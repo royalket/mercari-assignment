@@ -1,5 +1,5 @@
 import re
-from utils import get_nested_value
+from .utils import get_nested_value
 
 def check_rules(yaml_data, key, value, use_regex=False):
     results = []

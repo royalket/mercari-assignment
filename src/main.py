@@ -1,6 +1,7 @@
 import argparse
-from yaml_parser import parse_yaml_files
-from rule_checker import check_rules
+from pathlib import Path
+from .yaml_parser import parse_yaml_files
+from .rule_checker import check_rules
 
 def main():
     parser = argparse.ArgumentParser(description="Kubernetes YAML Linter")
@@ -10,11 +11,15 @@ def main():
     parser.add_argument("--regex", action="store_true", help="Use regex matching")
     args = parser.parse_args()
 
-    yaml_data = parse_yaml_files(args.path)
-    results = check_rules(yaml_data, args.key, args.value, use_regex=args.regex)
+    path = Path(args.path)
+    if path.exists():
+        yaml_data = parse_yaml_files(path)
+        results = check_rules(yaml_data, args.key, args.value, use_regex=args.regex)
 
-    for result in results:
-        print(f"key = {result['key']}, value = {result['value']}, {result['file']}")
+        for result in results:
+            print(f"key = {result['key']}, value = {result['value']}, {result['file']}")
+    else:
+        print(f"Error: Invalid path '{args.path}'")
 
 if __name__ == "__main__":
     main()
