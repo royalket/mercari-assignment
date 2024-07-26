@@ -1,7 +1,7 @@
 from pathlib import Path
 
 def get_yaml_files(path):
-    path = Path(path)
+    path = Path(path).resolve()
     if path.is_file():
         return [path]
     elif path.is_dir():
